@@ -1,0 +1,41 @@
+---
+title: "Word Prediction: An Initial Work Product"
+author: "Jackie Goor"
+date: "July 17, 2016"
+output: 
+  html_document: 
+  keep_md: yes
+keep_md: true
+---
+
+# Purpose: 
+This document presents the results of a project to create a word prediction application using a training data set provided by SwiftKey. This data set was be used to create the word prediction algorithm in the form of a shiny application. The data set (i.e. the corpus) is comprised of 3 text files (named en_US.blogs.txt, en_US.twitter.txt, and en_US.news.txt) and can be downloaded below. Some of the challenges involved processing the data set because of its size and creating an application with acceptable performance.
+
+[download data here](https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip)
+
+# Data Processing and Transformations
+
+The first steps I took in processing the data were to set all text to lower-case, remove punctuation,  and collapse multiple spaces into a single space. I also removed all non-alpha characters. I also removed words from my "unacceptable" word list to prevent these from being part of my predictions.
+
+1-grams through 5-grams were then created and the frequencies of the nth predicted words were compiled (i.e. for 5-grams, I compiled the frequencies for the 4 predictor words and the 5th predicted word). Since the prediction algorithm predicts the 3 most common next-words (based on frequency), I only needed to keep the top 3 ranked predicted words for each set of n-gram predictors. This helped reduce the size of each data set.
+
+# Application Algorithm
+
+I ended up with 5 data sets comprised of the n-grams (1-gram thru 5-grams) with each (n-1)-word Predictor and the 3 most common next-words. When the user enters a phrase in the application, then pushes the "Predict" button, the entered phrase is "cleaned" (lower-cased, punctuation removed, non-alpha characters removed). Then the last n-words entered are searched for in the 5 data sets (i.e. if the user has entered 4 or more words, the 5-gram data set is searched first for the last 4 words as Predictor words and the Predicted words are returned). If nothing is found in the search, then the "next" n-gram data set is searched using the last n-1 words entered, and so on until a Prediction is found.
+
+# Enhancements
+
+The enhancements I would like to do include (but have not had time for yet):
+        1. Predicting without the user having to push the "Predict" button.
+        2. Improving performance.
+
+# Conclusion
+
+This may suffice as a first effort in word processing and owrd prediction, but I feel that I have just scratched the surface in exploring the available algorithms and packages. Please be gentle in your grading!
+
+Thank you.
+
+
+
+
+
